@@ -11,7 +11,7 @@ const App = () => {
     console.log('effect')
     axios.get('https://restcountries.eu/rest/v2/all')
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           setCountries(response.data)
         }) 
   
@@ -22,7 +22,7 @@ const App = () => {
     let input = new RegExp(e.target.value,'i')
     
     let filtered = countries.filter(country => input.test(country.name))
-    console.log(filtered);
+    // console.log(filtered);
     setFiltered(filtered)
   }
 
