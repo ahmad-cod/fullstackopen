@@ -1,11 +1,10 @@
 import React from 'react';
 
-
-const Person = ({ person }) => {
+const Person = ({ person, del }) => {
 
   return (
     <div className="Person">
-      <li>{person.name} {person.number}</li>
+      <li>{person.name} {person.number} <button onClick={() => {if(window.confirm("Are you sure you want to delete this contact?")){del(person.id)}}}>delete</button></li>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Form = ({ handleChange, handleSubmit }) => {
+    // const [inputValue, setInputValue] = useState('')
     return (
         < >
             <form onSubmit={handleSubmit}>
