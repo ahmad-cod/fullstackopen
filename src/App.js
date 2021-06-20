@@ -3,12 +3,14 @@ import Filter from './components/Filter';
 import Form from './components/Form';
 import Persons from './components/Persons';
 import phoneService from './services/phones';
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [ newName, setNewName ] = useState('');
   const [ newNumber, setNewNumber ] = useState('');
   const [ filtered, setFiltered ] = useState([]);
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     console.log('effect')
@@ -33,12 +35,21 @@ const App = () => {
              console.log(res)
              setPersons(persons.map(person => person.id !== samePerson.id ? person : res.data))
            })
+           .catch(error => {
+            setNotification({error})
+            setTimeout(() => setNotification(null), 5000)
+          })
     }
-    // const newPersons = [...persons, {name: newName, number: newNumber}]
     phoneService.create({name: newName, number: newNumber})
             .then(res => {
               console.log(res);
               setPersons(persons.concat(res.data))
+              setNotification({success : `${newName} has been created successfully`})
+              setTimeout(() => setNotification(null), 4000)
+            })
+            .catch(error => {
+              setNotification({error})
+              setTimeout(() => setNotification(null), 5000)
             })
   }
   const handleChange = (e) => {
@@ -52,16 +63,20 @@ const App = () => {
   }
   const handleDelete = (personid) => {
   console.log(personid)
+  const deletedContact = persons.find(person => person.id === personid)
     phoneService.deletePhone(personid)
       .then(res => {
         console.log(res)
-        setPersons(persons.filter(person => person.id !== personid))
+        setPersons(persons.filter(person => person.id !== personid));
+        setNotification({success : `You successfully deleted ${deletedContact.name}`})
+        setTimeout(() => setNotification(null), 4000)
       })
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
       <Filter handleChange={handleChange} />
       <Form handleChange={handleChange} handleSubmit={handleSubmit} />
       <h2>Numbers</h2>
