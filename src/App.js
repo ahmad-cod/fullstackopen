@@ -10,6 +10,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('');
   const [ newNumber, setNewNumber ] = useState('');
   const [ filtered, setFiltered ] = useState([]);
+  // const [ nameValue, setNameValue ] = useState('');
+  // const [ numberValue, setNumberValue ] = useState('');
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
@@ -51,8 +53,11 @@ const App = () => {
               setNotification({error})
               setTimeout(() => setNotification(null), 5000)
             })
+            setNewName('');
+            setNewNumber('')
   }
   const handleChange = (e) => {
+    // setNameValue(e.target.value)
     if(e.target.id === 'name') return setNewName(() => e.target.value)
     if(e.target.id === 'number') return setNewNumber(() => e.target.value)
     if(e.target.id === 'filter') {
@@ -78,10 +83,10 @@ const App = () => {
       <h2>Phonebook</h2>
       <Notification message={notification} />
       <Filter handleChange={handleChange} />
-      <Form handleChange={handleChange} handleSubmit={handleSubmit} />
-      <h2>Numbers</h2>
+      <Form handleChange={handleChange} handleSubmit={handleSubmit} 
+      value={{newName, newNumber}} />
+      <h2>Contacts</h2>
       <Persons persons={persons} filtered={filtered} del={handleDelete} />
-      ...<div>debug: {newName}</div>
     </div>
   )
 }
