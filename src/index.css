@@ -26,3 +26,15 @@ body {
   padding: 10px;
   margin-bottom: 10px;
 }
+[type="submit"] {
+  background: steelblue;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+input {
+  border: 0;
+  border-bottom: 1px solid steelblue;
+  outline: none;
+  padding: 10px;
+}

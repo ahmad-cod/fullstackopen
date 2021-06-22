@@ -10,8 +10,6 @@ const App = () => {
   const [ newName, setNewName ] = useState('');
   const [ newNumber, setNewNumber ] = useState('');
   const [ filtered, setFiltered ] = useState([]);
-  // const [ nameValue, setNameValue ] = useState('');
-  // const [ numberValue, setNumberValue ] = useState('');
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
@@ -41,6 +39,8 @@ const App = () => {
             setNotification({error})
             setTimeout(() => setNotification(null), 5000)
           })
+          setNewName('');
+          setNewNumber('')
     }
     phoneService.create({name: newName, number: newNumber})
             .then(res => {
@@ -61,9 +61,9 @@ const App = () => {
     if(e.target.id === 'name') return setNewName(() => e.target.value)
     if(e.target.id === 'number') return setNewNumber(() => e.target.value)
     if(e.target.id === 'filter') {
-      let filtered = persons.filter(person => person.name.includes(e.target.value))
+      let filtered = persons.filter(person => new RegExp(e.target.value, 'i').test(person.name))
       console.log(filtered);
-      setFiltered(() => filtered)
+      setFiltered(filtered)
     }
   }
   const handleDelete = (personid) => {
@@ -71,7 +71,6 @@ const App = () => {
   const deletedContact = persons.find(person => person.id === personid)
     phoneService.deletePhone(personid)
       .then(res => {
-        console.log(res)
         setPersons(persons.filter(person => person.id !== personid));
         setNotification({success : `You successfully deleted ${deletedContact.name}`})
         setTimeout(() => setNotification(null), 4000)

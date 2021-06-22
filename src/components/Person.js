@@ -5,7 +5,8 @@ const Person = ({ person, del }) => {
     background: "red",
     color: "white",
     padding: "2px 10px" ,
-    borderRadius: "10px"
+    borderRadius: "6px",
+    outline: "none"
   }
   return (
     <div className="Person">
