@@ -58,8 +58,14 @@ const App = () => {
   }
   const handleChange = (e) => {
     // setNameValue(e.target.value)
-    if(e.target.id === 'name') return setNewName(() => e.target.value)
-    if(e.target.id === 'number') return setNewNumber(() => e.target.value)
+    if(e.target.id === 'name') {
+      setFiltered('')
+      return setNewName(() => e.target.value)
+    }
+    if(e.target.id === 'number') {
+      setFiltered('')
+      return setNewNumber(() => e.target.value)
+    }
     if(e.target.id === 'filter') {
       let filtered = persons.filter(person => new RegExp(e.target.value, 'i').test(person.name))
       console.log(filtered);

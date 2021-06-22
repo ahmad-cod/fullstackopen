@@ -5,8 +5,13 @@ const Person = ({ person, del }) => {
     background: "red",
     color: "white",
     padding: "2px 10px" ,
+    margin: "2px 15px",
     borderRadius: "6px",
     outline: "none"
+  }
+  const liStyle = {
+    margin: "6px 0",
+    padding: "10px 0"
   }
   return (
     <div className="Person">
